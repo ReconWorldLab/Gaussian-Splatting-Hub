@@ -1,0 +1,14 @@
+[
+  {
+    "id": "scene-001",
+    "title": "赛博朋克小巷",
+    "author": "GS-Hub Demo",
+    "tags": ["城市", "夜景", "扫描"],
+    "thumbnail": "/thumbnails/scene-001.svg",
+    "summary": "霓虹灯、潮湿路面和窄巷构成的示例素材卡片，用于演示列表页与详情页结构。",
+    "description": "这是一个用于初始化 GS-Hub 的占位示例素材。\n\n实际使用时，你可以在这里补充采集方式、训练参数、场景亮点、授权说明，以及用户下载前需要了解的注意事项。",
+    "source": "内部演示样例",
+    "download_url": "https://pan.baidu.com/s/1gs-hub-demo",
+    "download_note": "示例提取码：3dgs"
+  }
+]

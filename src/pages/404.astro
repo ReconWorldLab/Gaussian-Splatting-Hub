@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/url.js';
+---
+
+<BaseLayout title="页面未找到 | GS-Hub" description="请求的页面不存在。">
+  <section class="empty-state">
+    <h1>页面不存在</h1>
+    <p>当前链接没有对应的素材或页面。你可以返回素材大厅重新浏览。</p>
+    <a class="download-button" href={withBase('/')}>返回首页</a>
+  </section>
+</BaseLayout>
+

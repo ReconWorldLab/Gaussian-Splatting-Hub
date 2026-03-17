@@ -1,0 +1,20 @@
+{
+  "name": "gs-hub",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run validate && astro build",
+    "preview": "astro preview",
+    "validate": "node scripts/validate-assets.mjs",
+    "test": "node --test tests/assets.validation.test.mjs"
+  },
+  "devDependencies": {
+    "astro": "6.0.5"
+  }
+}
+

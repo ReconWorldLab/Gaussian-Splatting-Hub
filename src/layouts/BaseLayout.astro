@@ -1,0 +1,42 @@
+---
+import { withBase } from '../lib/url.js';
+import '../styles/global.css';
+
+const {
+  title = 'GS-Hub | 3DGS 素材库',
+  description = '一个基于 Astro 和 GitHub Pages 的 3DGS 静态素材库。'
+} = Astro.props;
+
+const homeHref = withBase('/');
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={withBase('/thumbnails/scene-001.svg')} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="page-aura page-aura-left"></div>
+    <div class="page-aura page-aura-right"></div>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand-mark" href={homeHref}>
+          <span class="brand-mark__eyebrow">3D Gaussian Splatting</span>
+          <strong>GS-Hub</strong>
+        </a>
+        <p class="site-header__summary">面向公开展示与外链下载的轻量素材库。</p>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <p>GS-Hub v1 · Astro 静态站点 · GitHub Pages 自动发布</p>
+      </footer>
+    </div>
+  </body>
+</html>
+

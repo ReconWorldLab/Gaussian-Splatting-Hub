@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { loadAssets } from '../../lib/assets.js';
+import { withBase } from '../../lib/url.js';
+
+export function getStaticPaths() {
+  return loadAssets().map((asset) => ({
+    params: { id: asset.id },
+    props: { asset }
+  }));
+}
+
+const { asset } = Astro.props;
+const detailParagraphs = (asset.description ?? asset.summary ?? '暂无详情说明。')
+  .split(/\n+/)
+  .map((line) => line.trim())
+  .filter(Boolean);
+---
+
+<BaseLayout
+  title={`${asset.title} | GS-Hub`}
+  description={asset.summary ?? `查看 ${asset.title} 的素材详情、标签和下载信息。`}
+>
+  <div class="detail-backlink">
+    <a href={withBase('/')}>返回素材大厅</a>
+  </div>
+
+  <article class="detail-layout">
+    <div class="detail-layout__media">
+      <img src={withBase(asset.thumbnail)} alt={`${asset.title} 缩略图`} width="960" height="640" />
+    </div>
+
+    <div class="detail-layout__content">
+      <p class="hero-panel__eyebrow">{asset.id}</p>
+      <h1>{asset.title}</h1>
+      <p class="detail-author">作者 / 来源：{asset.author}</p>
+
+      <div class="tag-list">
+        {asset.tags.map((tag) => <span class="mini-tag">{tag}</span>)}
+      </div>
+
+      <div class="detail-copy">
+        {detailParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+
+      <div class="detail-download">
+        <a class="download-button" href={asset.download_url} target="_blank" rel="noreferrer">
+          前往网盘下载
+        </a>
+        {asset.download_note ? <p class="download-note">{asset.download_note}</p> : null}
+      </div>
+
+      <dl class="detail-meta">
+        <div>
+          <dt>标签</dt>
+          <dd>{asset.tags.join(' / ')}</dd>
+        </div>
+        <div>
+          <dt>缩略图</dt>
+          <dd>{asset.thumbnail}</dd>
+        </div>
+        {
+          asset.source ? (
+            <div>
+              <dt>来源备注</dt>
+              <dd>{asset.source}</dd>
+            </div>
+          ) : null
+        }
+        {
+          asset.preview_model ? (
+            <div>
+              <dt>预览模型</dt>
+              <dd>{asset.preview_model}</dd>
+            </div>
+          ) : null
+        }
+      </dl>
+    </div>
+  </article>
+</BaseLayout>
