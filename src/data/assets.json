@@ -2,13 +2,37 @@
   {
     "id": "scene-001",
     "title": "赛博朋克小巷",
-    "author": "GS-Hub Demo",
+    "author": "GS-Hub Placeholder",
     "tags": ["城市", "夜景", "扫描"],
     "thumbnail": "/thumbnails/scene-001.svg",
-    "summary": "霓虹灯、潮湿路面和窄巷构成的示例素材卡片，用于演示列表页与详情页结构。",
-    "description": "这是一个用于初始化 GS-Hub 的占位示例素材。\n\n实际使用时，你可以在这里补充采集方式、训练参数、场景亮点、授权说明，以及用户下载前需要了解的注意事项。",
-    "source": "内部演示样例",
-    "download_url": "https://pan.baidu.com/s/1gs-hub-demo",
-    "download_note": "示例提取码：3dgs"
+    "summary": "霓虹灯、潮湿路面和窄巷构成的占位素材，用于展示列表页的卡片密度和详情页结构。",
+    "description": "这是第一条占位素材记录。\n\n后续你可以把这里替换成真实的素材背景、采集方式、训练参数、分辨率说明和版权备注。",
+    "source": "占位样例",
+    "download_url": "https://example.com/gs-hub/scene-001",
+    "download_note": "占位链接，后续替换为真实网盘地址。"
+  },
+  {
+    "id": "scene-002",
+    "title": "老工业车间",
+    "author": "GS-Hub Placeholder",
+    "tags": ["工业", "室内", "机械"],
+    "thumbnail": "/thumbnails/scene-002.svg",
+    "summary": "高窗、吊灯和旧式机械组成的工业风空间，用来占位展示第二种题材方向。",
+    "description": "这是第二条占位素材记录。\n\n如果后续你准备放工厂、仓库或机械设备类的高斯素材，可以直接沿用这条数据结构替换内容。",
+    "source": "占位样例",
+    "download_url": "https://example.com/gs-hub/scene-002",
+    "download_note": "占位链接，后续替换为真实网盘地址。"
+  },
+  {
+    "id": "scene-003",
+    "title": "玻璃中庭展厅",
+    "author": "GS-Hub Placeholder",
+    "tags": ["建筑", "展厅", "白天"],
+    "thumbnail": "/thumbnails/scene-003.svg",
+    "summary": "大面积天光和通透玻璃幕墙的空间场景，用于占位展示第三种视觉风格。",
+    "description": "这是第三条占位素材记录。\n\n后续你可以把这里替换成真实场景的介绍、亮点说明、提取码和数据来源信息。",
+    "source": "占位样例",
+    "download_url": "https://example.com/gs-hub/scene-003",
+    "download_note": "占位链接，后续替换为真实网盘地址。"
   }
 ]

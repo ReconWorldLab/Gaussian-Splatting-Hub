@@ -20,15 +20,13 @@ const homeHref = withBase('/');
     <title>{title}</title>
   </head>
   <body>
-    <div class="page-aura page-aura-left"></div>
-    <div class="page-aura page-aura-right"></div>
     <div class="site-shell">
       <header class="site-header">
         <a class="brand-mark" href={homeHref}>
           <span class="brand-mark__eyebrow">3D Gaussian Splatting</span>
           <strong>GS-Hub</strong>
+          <span class="brand-mark__tagline">免费下载使用的3d gaussian splatting素材库</span>
         </a>
-        <p class="site-header__summary">面向公开展示与外链下载的轻量素材库。</p>
       </header>
       <main>
         <slot />
@@ -39,4 +37,3 @@ const homeHref = withBase('/');
     </div>
   </body>
 </html>
-
