@@ -5,7 +5,6 @@ import { withBase } from '../lib/url.js';
 
 const assets = loadAssets();
 const tags = getAllTags(assets);
-const featuredCount = assets.length;
 ---
 
 <BaseLayout
@@ -73,17 +72,33 @@ const featuredCount = assets.length;
     }
   </section>
 
-  <section class="empty-state" data-empty-result hidden={assets.length > 0}>
-    <h2>没有符合条件的素材</h2>
-    <p>可以试试缩短关键词，或者切回“全部”标签重新查看。</p>
-  </section>
+  <details class="contact-card">
+    <summary class="contact-card__summary">联系我们</summary>
+    <ul class="contact-list">
+      <li class="contact-item">
+        <span class="contact-item__label">微信</span>
+        <span class="contact-item__value">reconworldlab</span>
+      </li>
+      <li class="contact-item">
+        <span class="contact-item__label">Email</span>
+        <a class="contact-item__value" href="mailto:3993352127@qq.com">3993352127@qq.com</a>
+      </li>
+      <li class="contact-item">
+        <span class="contact-item__label">GitHub</span>
+        <a class="contact-item__value" href="https://github.com/ReconWorldLab" target="_blank" rel="noreferrer">ReconWorldLab</a>
+      </li>
+      <li class="contact-item">
+        <span class="contact-item__label">Bilibili</span>
+        <a class="contact-item__value" href="https://space.bilibili.com/3690974653974649" target="_blank" rel="noreferrer">3690974653974649</a>
+      </li>
+    </ul>
+  </details>
 </BaseLayout>
 
 <script>
   const searchInput = document.querySelector('[data-search]');
   const tagButtons = [...document.querySelectorAll('[data-tag-button]')];
   const cards = [...document.querySelectorAll('[data-asset-card]')];
-  const emptyResult = document.querySelector('[data-empty-result]');
 
   let activeTag = 'all';
 
@@ -104,10 +119,6 @@ const featuredCount = assets.length;
         visibleCount += 1;
       }
     });
-
-    if (emptyResult) {
-      emptyResult.hidden = visibleCount > 0;
-    }
   };
 
   searchInput?.addEventListener('input', applyFilters);
