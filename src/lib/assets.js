@@ -19,6 +19,10 @@ function normalizeOptionalText(value) {
   return isNonEmptyString(value) ? value.trim() : undefined;
 }
 
+function normalizeRequiredText(value) {
+  return isNonEmptyString(value) ? value.trim() : '';
+}
+
 function normalizeThumbnail(value) {
   if (!isNonEmptyString(value)) {
     return null;
@@ -51,10 +55,75 @@ function defaultThumbnailExists(projectRoot, thumbnail) {
   return existsSync(path.resolve(projectRoot, 'public', relativePath));
 }
 
+function normalizeAssetKey(value) {
+  return normalizeRequiredText(value).toLowerCase();
+}
+
+function parseDownloadLinksFile(rawText) {
+  const blocks = rawText
+    .split(/\r?\n\s*\r?\n/)
+    .map((block) => block.trim())
+    .filter(Boolean);
+  const links = new Map();
+
+  for (const block of blocks) {
+    const lines = block
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    const titleMatch = lines[0]?.match(/^\d+\.\s*(.+)$/);
+    const urlLine = lines.find((line) => line.startsWith('链接：'));
+    const codeLine = lines.find((line) => line.startsWith('提取码：'));
+
+    if (!titleMatch || !urlLine) {
+      continue;
+    }
+
+    const rawName = titleMatch[1].trim();
+    const assetKey = normalizeAssetKey(rawName.replace(/\.[^.]+$/, ''));
+    const url = urlLine.replace(/^链接：/, '').trim();
+    const code = codeLine?.replace(/^提取码：/, '').trim() ?? '';
+
+    if (!assetKey || !url) {
+      continue;
+    }
+
+    links.set(assetKey, { url, code });
+  }
+
+  return links;
+}
+
+function loadDownloadLinks(projectRoot) {
+  const downloadLinksPath = path.resolve(projectRoot, 'download_link.txt');
+
+  if (!existsSync(downloadLinksPath)) {
+    return new Map();
+  }
+
+  return parseDownloadLinksFile(readFileSync(downloadLinksPath, 'utf8'));
+}
+
+function mergeDownloadNote(note, code) {
+  const segments = [];
+
+  if (isNonEmptyString(code)) {
+    segments.push(`提取码：${code.trim()}`);
+  }
+
+  if (isNonEmptyString(note)) {
+    segments.push(note.trim());
+  }
+
+  return segments.length > 0 ? segments.join(' · ') : undefined;
+}
+
 export function validateAssets(rawAssets, options = {}) {
   const projectRoot = options.projectRoot ?? defaultProjectRoot;
   const thumbnailExists =
     options.thumbnailExists ?? ((thumbnail) => defaultThumbnailExists(projectRoot, thumbnail));
+  const downloadLinks = options.downloadLinks ?? new Map();
 
   if (!Array.isArray(rawAssets)) {
     throw new AssetValidationError(['`assets.json` must export a JSON array.']);
@@ -70,13 +139,18 @@ export function validateAssets(rawAssets, options = {}) {
       return null;
     }
 
-    const id = isNonEmptyString(asset.id) ? asset.id.trim() : '';
-    const title = isNonEmptyString(asset.title) ? asset.title.trim() : '';
-    const author = isNonEmptyString(asset.author) ? asset.author.trim() : '';
+    const id = normalizeRequiredText(asset.id);
+    const title = normalizeRequiredText(asset.title);
+    const author = normalizeRequiredText(asset.author);
     const thumbnail = normalizeThumbnail(asset.thumbnail);
-    const downloadUrl = isNonEmptyString(asset.download_url) ? asset.download_url.trim() : '';
+    const assetKey = normalizeAssetKey(id);
+    const overrideDownloadUrl = downloadLinks.get(assetKey)?.url ?? '';
+    const inlineDownloadUrl = normalizeRequiredText(asset.download_url);
+    const aliasDownloadUrl = normalizeRequiredText(asset.download_link);
+    const downloadUrl = overrideDownloadUrl || inlineDownloadUrl || aliasDownloadUrl;
     const rawTags = Array.isArray(asset.tags) ? asset.tags : [];
     const tags = rawTags.filter((tag) => isNonEmptyString(tag)).map((tag) => tag.trim());
+    const downloadNote = mergeDownloadNote(asset.download_note, downloadLinks.get(assetKey)?.code);
 
     if (!id) {
       issues.push(`${prefix} is missing a non-empty \`id\`.`);
@@ -107,7 +181,7 @@ export function validateAssets(rawAssets, options = {}) {
     }
 
     if (!downloadUrl) {
-      issues.push(`${prefix} is missing a non-empty \`download_url\`.`);
+      issues.push(`${prefix} is missing a non-empty \`download_url\` or \`download_link\`.`);
     } else if (!isHttpsUrl(downloadUrl)) {
       issues.push(`${prefix} must use a valid https download link.`);
     }
@@ -122,7 +196,7 @@ export function validateAssets(rawAssets, options = {}) {
       summary: normalizeOptionalText(asset.summary),
       description: normalizeOptionalText(asset.description),
       source: normalizeOptionalText(asset.source),
-      download_note: normalizeOptionalText(asset.download_note),
+      download_note: downloadNote,
       preview_model: normalizeOptionalText(asset.preview_model)
     };
   });
@@ -147,7 +221,10 @@ export function loadAssets(options = {}) {
     throw new AssetValidationError([`Unable to parse assets data at "${dataPath}": ${message}`]);
   }
 
-  return validateAssets(rawAssets, { projectRoot });
+  return validateAssets(rawAssets, {
+    projectRoot,
+    downloadLinks: loadDownloadLinks(projectRoot)
+  });
 }
 
 export function getAllTags(assets = loadAssets()) {

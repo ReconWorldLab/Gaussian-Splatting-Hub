@@ -16,7 +16,7 @@ const validAsset = {
   summary: '测试素材'
 };
 
-function createTempProject(assets, { withThumbnail = true } = {}) {
+function createTempProject(assets, { withThumbnail = true, downloadLinkText } = {}) {
   const projectRoot = mkdtempSync(path.join(os.tmpdir(), 'gs-hub-'));
   const dataDir = path.join(projectRoot, 'src', 'data');
   const thumbDir = path.join(projectRoot, 'public', 'thumbnails');
@@ -27,6 +27,10 @@ function createTempProject(assets, { withThumbnail = true } = {}) {
 
   if (withThumbnail) {
     writeFileSync(path.join(thumbDir, 'scene-001.svg'), '<svg xmlns="http://www.w3.org/2000/svg" />');
+  }
+
+  if (downloadLinkText) {
+    writeFileSync(path.join(projectRoot, 'download_link.txt'), downloadLinkText);
   }
 
   return projectRoot;
@@ -41,6 +45,14 @@ test('validateAssets accepts a valid asset entry', () => {
   const assets = validateAssets([validAsset], { thumbnailExists: () => true });
   assert.equal(assets[0].id, validAsset.id);
   assert.equal(assets[0].thumbnail, validAsset.thumbnail);
+});
+
+test('validateAssets accepts download_link as an alias', () => {
+  const assets = validateAssets(
+    [{ ...validAsset, download_url: undefined, download_link: 'https://pan.baidu.com/s/1alias-demo' }],
+    { thumbnailExists: () => true }
+  );
+  assert.equal(assets[0].download_url, 'https://pan.baidu.com/s/1alias-demo');
 });
 
 test('validateAssets rejects duplicate ids', () => {
@@ -72,3 +84,11 @@ test('loadAssets accepts a valid project layout', () => {
   assert.equal(assets[0].author, validAsset.author);
 });
 
+test('loadAssets merges download_link.txt and prepends the extraction code', () => {
+  const projectRoot = createTempProject([validAsset], {
+    downloadLinkText: `1. scene-001.sog\n链接：https://pan.quark.cn/s/example123\n提取码：ABCD`
+  });
+  const assets = loadAssets({ projectRoot });
+  assert.equal(assets[0].download_url, 'https://pan.quark.cn/s/example123');
+  assert.equal(assets[0].download_note, '提取码：ABCD');
+});

@@ -6,10 +6,10 @@
     "tags": ["3DGS", "室内", "人物", "基准场景"],
     "thumbnail": "/thumbnails/drjohnson.jpg",
     "summary": "真实 3D Gaussian Splatting 场景，来自公开数据集中的人物室内重建样例。",
-    "description": "该条目来自 Hugging Face 上的 Voxel51 Gaussian Splats Dataset，并明确提供了官方 3D Gaussian Splatting 方法生成的 point_cloud.ply。当前下载按钮直达 iteration_30000 的原始 3DGS PLY 文件，适合作为首批真实样例内容。",
+    "description": "该条目来自 Hugging Face 上的 Voxel51 Gaussian Splats Dataset。当前网页提供的是你转存后的 .sog 下载版本，详情页按钮会跳转到夸克网盘分享链接，并显示对应提取码。",
     "source": "Apache-2.0 · https://huggingface.co/datasets/Voxel51/gaussian_splatting",
     "download_url": "https://huggingface.co/datasets/Voxel51/gaussian_splatting/resolve/main/FO_dataset/drjohnson/point_cloud/iteration_30000/point_cloud.ply?download=true",
-    "download_note": "原始 3DGS PLY，约 788 MB。"
+    "download_note": ".sog 文件，约 45.14 MB。"
   },
   {
     "id": "playroom",
@@ -18,10 +18,10 @@
     "tags": ["3DGS", "室内", "房间", "基准场景"],
     "thumbnail": "/thumbnails/playroom.jpg",
     "summary": "真实 3D Gaussian Splatting 场景，展示典型室内空间的高斯重建效果。",
-    "description": "该条目来自 Hugging Face 上的 Voxel51 Gaussian Splats Dataset，并提供了标准的 point_cloud.ply 输出。下载链接直达 iteration_30000 的 3DGS 原始文件，可用于测试查看器、压缩流程或素材收集。",
+    "description": "该条目来自 Hugging Face 上的 Voxel51 Gaussian Splats Dataset。当前网页提供的是你转存后的 .sog 下载版本，详情页按钮会跳转到夸克网盘分享链接，并显示对应提取码。",
     "source": "Apache-2.0 · https://huggingface.co/datasets/Voxel51/gaussian_splatting",
     "download_url": "https://huggingface.co/datasets/Voxel51/gaussian_splatting/resolve/main/FO_dataset/playroom/point_cloud/iteration_30000/point_cloud.ply?download=true",
-    "download_note": "原始 3DGS PLY，约 475 MB。"
+    "download_note": ".sog 文件，约 28.22 MB。"
   },
   {
     "id": "train",
@@ -30,10 +30,10 @@
     "tags": ["3DGS", "室外", "交通", "基准场景"],
     "thumbnail": "/thumbnails/train.jpg",
     "summary": "真实 3D Gaussian Splatting 场景，适合作为交通类外景样例。",
-    "description": "该条目来自 Hugging Face 上的 Voxel51 Gaussian Splats Dataset，文件结构中包含 point_cloud/iteration_30000/point_cloud.ply。当前下载地址直接指向完整 3DGS PLY 文件，适合做首批公开样例。",
+    "description": "该条目来自 Hugging Face 上的 Voxel51 Gaussian Splats Dataset。当前网页提供的是你转存后的 .sog 下载版本，详情页按钮会跳转到夸克网盘分享链接，并显示对应提取码。",
     "source": "Apache-2.0 · https://huggingface.co/datasets/Voxel51/gaussian_splatting",
     "download_url": "https://huggingface.co/datasets/Voxel51/gaussian_splatting/resolve/main/FO_dataset/train/point_cloud/iteration_30000/point_cloud.ply?download=true",
-    "download_note": "原始 3DGS PLY，约 267 MB。"
+    "download_note": ".sog 文件，约 11.28 MB。"
   },
   {
     "id": "truck",
@@ -42,9 +42,9 @@
     "tags": ["3DGS", "室外", "车辆", "基准场景"],
     "thumbnail": "/thumbnails/truck.jpg",
     "summary": "真实 3D Gaussian Splatting 场景，覆盖车辆主题和外景重建。",
-    "description": "该条目来自 Hugging Face 上的 Voxel51 Gaussian Splats Dataset，并公开提供了 iteration_30000 的 point_cloud.ply。下载按钮会跳转到原始 3DGS PLY 地址，不是普通 mesh 文件。",
+    "description": "该条目来自 Hugging Face 上的 Voxel51 Gaussian Splats Dataset。当前网页提供的是你转存后的 .sog 下载版本，详情页按钮会跳转到夸克网盘分享链接，并显示对应提取码。",
     "source": "Apache-2.0 · https://huggingface.co/datasets/Voxel51/gaussian_splatting",
     "download_url": "https://huggingface.co/datasets/Voxel51/gaussian_splatting/resolve/main/FO_dataset/truck/point_cloud/iteration_30000/point_cloud.ply?download=true",
-    "download_note": "原始 3DGS PLY，约 510 MB。"
+    "download_note": ".sog 文件，约 8.71 MB。"
   }
 ]
